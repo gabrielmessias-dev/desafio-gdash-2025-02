@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-
-// Imports das páginas
+import { Layout } from "./components/layout/Layout";
+import AboutPage from "./pages/AboutPage";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import PokemonPage from "./pages/PokemonPage";
@@ -13,10 +13,31 @@ const Router = () => {
   const path = window.location.pathname;
 
   if (!isAuthenticated) return <LoginPage />;
-  if (path === "/users") return <UsersPage />;
-  if (path === "/pokemon") return <PokemonPage />;
 
-  return <DashboardPage />;
+  if (path === "/users")
+    return (
+      <Layout>
+        <UsersPage />
+      </Layout>
+    );
+  if (path === "/pokemon")
+    return (
+      <Layout>
+        <PokemonPage />
+      </Layout>
+    );
+  if (path === "/about")
+    return (
+      <Layout>
+        <AboutPage />
+      </Layout>
+    ); // <--- Nova Rota
+
+  return (
+    <Layout>
+      <DashboardPage />
+    </Layout>
+  );
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
