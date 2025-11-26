@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import axios from "axios";
+import api from "@/lib/api"; // <--- Importe o api
 import { useEffect, useState } from "react";
 
 export default function PokemonPage() {
@@ -12,9 +12,7 @@ export default function PokemonPage() {
   const fetchPokemons = async (pageNum: number) => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `http://localhost:3000/pokemon?page=${pageNum}`
-      );
+      const res = await api.get(`/pokemon?page=${pageNum}`);
       setPokemons(res.data.results);
       setTotalPages(res.data.totalPages);
       setPage(pageNum);
@@ -36,12 +34,7 @@ export default function PokemonPage() {
           <h1 className="text-3xl font-bold text-slate-900">
             🐉 Pokédex (Via Backend)
           </h1>
-          <Button
-            variant="outline"
-            onClick={() => (window.location.href = "/")}
-          >
-            Voltar
-          </Button>
+          <Button onClick={() => (window.location.href = "/")}>Voltar</Button>
         </div>
         {loading ? (
           <div className="text-center">Carregando...</div>
@@ -50,10 +43,18 @@ export default function PokemonPage() {
             {pokemons.map((poke) => (
               <Card
                 key={poke.name}
-                className="capitalize hover:bg-slate-100 transition"
+                className="capitalize hover:bg-slate-100 transition cursor-pointer flex flex-col items-center p-4"
               >
-                <CardHeader>
-                  <CardTitle className="text-center">{poke.name}</CardTitle>
+                {/* IMAGEM DO POKEMON AQUI */}
+                <img
+                  src={poke.image}
+                  alt={poke.name}
+                  className="w-24 h-24 object-contain mb-2"
+                />
+                <CardHeader className="p-0">
+                  <CardTitle className="text-center text-lg">
+                    {poke.name}
+                  </CardTitle>
                 </CardHeader>
               </Card>
             ))}

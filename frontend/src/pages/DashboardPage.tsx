@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import axios from "axios";
+import api from "@/lib/api"; // <--- Importe o nosso api customizado
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
@@ -18,7 +18,8 @@ export default function DashboardPage() {
   const fetchWeather = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/weather");
+      // Usa 'api' em vez de 'axios'
+      const response = await api.get("/weather");
       setWeatherList(response.data);
     } catch (error) {
       console.error(error);
@@ -27,9 +28,10 @@ export default function DashboardPage() {
     }
   };
 
+  // Atualiza a cada 2 minutos (120000ms)
   useEffect(() => {
     fetchWeather();
-    setInterval(fetchWeather, 30000);
+    setInterval(fetchWeather, 120000);
   }, []);
   const current = weatherList[0];
 
@@ -41,13 +43,14 @@ export default function DashboardPage() {
             🌦️ Dashboard Climático
           </h1>
           <div className="flex gap-2">
+            {/* Botão Excel Novo */}
             <Button
               variant="outline"
               onClick={() =>
-                window.open("http://localhost:3000/weather/export/csv")
+                window.open("http://localhost:3000/weather/export/xlsx")
               }
             >
-              📄 CSV
+              📊 Excel
             </Button>
             <Button
               variant="secondary"
