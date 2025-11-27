@@ -92,3 +92,9 @@ Para acessar o sistema pela primeira vez, utilize as credenciais do administrado
 * **NestJS:** Utilizado pela robustez e facilidade de manutenção com TypeScript.
 * **Go Worker:** Escolhido para demonstrar processamento de fila com baixo consumo de memória.
 * **Docker Compose:** Orquestração completa para rodar todo o ecossistema com um único comando.
+
+## 📹 Vídeo Demonstrativo
+
+Assista à demonstração completa da arquitetura e funcionalidades:
+
+▶️ **[Clique aqui para ver o Vídeo no YouTube](https://www.youtube.com/watch?v=fdOi3jm2Jfs)**
